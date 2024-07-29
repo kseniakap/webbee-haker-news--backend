@@ -12,6 +12,12 @@
 
 `npm install`
 
+## Переменные окружения
+
+Создаём файл .env и прописываем переменную:
+
+`API_URL=https://api.hnpwa.com/v0/`
+
 ## Запуск проекта
 
 `npm run start`
