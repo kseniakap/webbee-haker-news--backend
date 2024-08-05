@@ -12,7 +12,6 @@ export class NewsService {
       );
       return response.data;
     } catch (error) {
-      console.error(error);
       throw new Error('Ошибка при получении данных из внешнего API');
     }
   }
@@ -27,9 +26,10 @@ export class NewsService {
         promises.push(this.getAllNewsOnePage(i));
       }
 
-      const results = await Promise.all(promises);
-      const flattenedResults = results.flatMap((result) => result);
-      const limitedResults = flattenedResults.slice(0, 100);
+      const limitedResults = (await Promise.all(promises))
+        .flatMap((result) => result)
+        .slice(0, 100);
+
       return limitedResults.map((news) => ({
         id: news.id,
         title: news.title,
@@ -43,7 +43,6 @@ export class NewsService {
         domain: news.domain,
       }));
     } catch (error) {
-      console.error(error);
       throw new Error('Ошибка при получении 100 новостей из внешнего API');
     }
   }
@@ -67,7 +66,6 @@ export class NewsService {
       };
       return transformedData;
     } catch (error) {
-      console.error(error);
       throw new Error(
         'Ошибка при получении данных для одной записи из внешнего API',
       );

@@ -29,7 +29,6 @@ export class CommentsService {
       const rootComments: Comments[] = this.transformComments(comments);
       return rootComments;
     } catch (error) {
-      console.error(error);
       throw new Error('Ошибка при получении комментариев из внешнего API');
     }
   }
