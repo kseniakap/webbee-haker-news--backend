@@ -26,8 +26,7 @@ export class CommentsService {
         `${process.env.API_URL}/item/${id}.json`,
       );
       const { comments } = response.data;
-      const rootComments = this.transformComments(comments);
-      return rootComments;
+      return this.transformComments(comments);
     } catch (error) {
       throw new Error('Ошибка при получении комментариев из внешнего API');
     }
