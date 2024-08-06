@@ -38,9 +38,6 @@ export class NewsService {
         time: news.time,
         timeAgo: news.time_ago,
         commentsCount: news.comments_count,
-        type: news.type,
-        url: news.url,
-        domain: news.domain,
       }));
     } catch (error) {
       throw new Error('Ошибка при получении 100 новостей из внешнего API');
@@ -61,6 +58,7 @@ export class NewsService {
         user: newData.user,
         time: newData.time,
         timeAgo: newData.time_ago,
+        url: newData.url,
         content: newData.content,
         commentsCount: newData.comments_count,
       };

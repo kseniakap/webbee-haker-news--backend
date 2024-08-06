@@ -12,7 +12,10 @@ export interface News {
   domain?: string;
 }
 //(С преобразованием) Тип получаемых данных с API для главной страницы
-export type NewsTransform = Omit<News, 'time_ago' | 'comments_count'> & {
+export type NewsTransform = Omit<
+  News,
+  'time_ago' | 'comments_count' | 'type' | 'url' | 'domain'
+> & {
   timeAgo: string;
   commentsCount: number;
 };
@@ -42,12 +45,16 @@ export type NewsItemTransform = Pick<
 > & { timeAgo: string; commentsCount: number };
 
 // Интерфейс получаемых данных с API для коментариев
-export interface Comments extends NewsItem {}
-
-// (С преобразованием) Тип получаемых данных с API для комментариев
-export type CommentsTransform = Omit<
+export type Comments = Omit<
   NewsItem,
-  'time_ago' | 'comments_count'
+  'title' | 'points' | 'url' | 'domain' | 'comments'
+> & {
+  comments: Comments[];
+};
+
+export type CommentsTransform = Omit<
+  Comments,
+  'time_ago' | 'comments_count' | 'comments'
 > & {
   timeAgo: string;
   commentsCount: number;

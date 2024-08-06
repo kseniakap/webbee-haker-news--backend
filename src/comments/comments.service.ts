@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { Comments } from 'src/types';
+import { Comments, CommentsTransform } from 'src/types';
 
 @Injectable()
 export class CommentsService {
   //Трансформация данных
-  private transformComments(comments) {
-    return comments.map((comment) => {
+  private transformComments(comments: Comments[]): CommentsTransform[] {
+    return comments.map((comment: Comments) => {
       const { time_ago, comments_count, ...rest } = comment;
-      const transformedComment: Comments = {
+      const transformedComment: CommentsTransform = {
         ...rest,
         timeAgo: time_ago,
         commentsCount: comments_count,
@@ -26,7 +26,7 @@ export class CommentsService {
         `${process.env.API_URL}/item/${id}.json`,
       );
       const { comments } = response.data;
-      const rootComments: Comments[] = this.transformComments(comments);
+      const rootComments = this.transformComments(comments);
       return rootComments;
     } catch (error) {
       throw new Error('Ошибка при получении комментариев из внешнего API');
